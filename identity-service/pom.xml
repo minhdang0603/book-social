@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.minhdang</groupId>
-	<artifactId>identify-service</artifactId>
+	<artifactId>identity-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>identify-service</name>
+	<name>identity-service</name>
 	<description>Identity service</description>
 	<properties>
 		<java.version>21</java.version>
