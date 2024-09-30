@@ -88,7 +88,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // create token
         var token = generateToken(user);
 
-        return AuthenticationResponse.builder().token(token).authenticated(true).build();
+        return AuthenticationResponse.builder().token(token).expiryTime(new Date()).build();
     }
 
     @Override
@@ -127,7 +127,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         String token = generateToken(user);
 
-        return AuthenticationResponse.builder().token(token).authenticated(true).build();
+        return AuthenticationResponse.builder().token(token).expiryTime(new Date()).build();
     }
 
     private SignedJWT verifyToken(String token, boolean isRefresh) throws JOSEException, ParseException {
@@ -165,7 +165,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         // create claim set
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getUsername()) // username
+                .subject(user.getId()) // username
                 .issuer("ruabin.io.vn")
                 .issueTime(new Date())
                 .expirationTime(new Date(

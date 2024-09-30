@@ -7,7 +7,7 @@ spring:
     name: notification-service
   data:
     mongodb:
-      uri: mongodb://root:1163@localhost:27017/notification-service?authSource=admin
+      uri: mongodb://root:1163ruabin@localhost:27017/notification-service?authSource=admin
   kafka:
     bootstrap-servers: localhost:9094
     consumer:
