@@ -3,10 +3,12 @@ package com.minhdang.post.service.impl;
 import com.minhdang.post.dto.request.PostRequest;
 import com.minhdang.post.dto.response.PageResponse;
 import com.minhdang.post.dto.response.PostResponse;
+import com.minhdang.post.dto.response.UserProfileResponse;
 import com.minhdang.post.entity.Post;
 import com.minhdang.post.helper.DateTimeFormatter;
 import com.minhdang.post.mapper.PostMapper;
 import com.minhdang.post.repository.PostRepository;
+import com.minhdang.post.repository.httpclient.ProfileClient;
 import com.minhdang.post.service.PostService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ public class PostServiceImpl implements PostService {
     DateTimeFormatter dateTimeFormatter;
     PostRepository postRepository;
     PostMapper postMapper;
+    ProfileClient profileClient;
 
     @Override
     public PostResponse createPost(PostRequest request) {
@@ -59,15 +62,25 @@ public class PostServiceImpl implements PostService {
 
         String userId = authentication.getName(); // Subject field in jwt
 
+        UserProfileResponse userProfile = null;
+
+        try {
+            userProfile = profileClient.getUserProfile(userId).getResult();
+        } catch (Exception e) {
+            log.error("Error while getting user profile {}", e.getMessage());
+        }
+
+
         Sort sort = Sort.by("createdDate").descending();
 
         Pageable pageable = PageRequest.of(page - 1, size, sort);
-
+        String username = userProfile != null ? userProfile.getUsername() : null;
         var pageData = postRepository.findByUserId(pageable, userId);
 
         var postList = pageData.getContent().stream().map(post -> {
             var postResponse = postMapper.toPostResponse(post);
             postResponse.setCreated(dateTimeFormatter.format(post.getCreatedDate()));
+            postResponse.setUsername(username);
             return postResponse;
         }).toList();
 

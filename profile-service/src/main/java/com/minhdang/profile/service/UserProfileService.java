@@ -8,6 +8,8 @@ import java.util.List;
 public interface UserProfileService {
     UserProfileResponse createProfile(ProfileCreationRequest request);
 
+    UserProfileResponse getByUserId(String userId);
+
     UserProfileResponse getProfile(String id);
 
     List<UserProfileResponse> getAllProfiles();
