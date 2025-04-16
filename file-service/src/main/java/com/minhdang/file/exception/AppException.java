@@ -1,4 +1,4 @@
-package com.minhdang.fileservice.exception;
+package com.minhdang.file.exception;
 
 public class AppException extends RuntimeException {
 

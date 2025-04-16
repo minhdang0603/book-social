@@ -1,4 +1,4 @@
-package com.minhdang.fileservice.configuration;
+package com.minhdang.file.configuration;
 
 import com.nimbusds.jwt.SignedJWT;
 import org.springframework.security.oauth2.jwt.Jwt;

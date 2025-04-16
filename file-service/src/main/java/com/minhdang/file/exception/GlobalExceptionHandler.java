@@ -1,6 +1,6 @@
-package com.minhdang.fileservice.exception;
+package com.minhdang.file.exception;
 
-import com.minhdang.notification.dto.response.ApiResponse;
+import com.minhdang.file.dto.response.ApiResponse;
 import jakarta.validation.ConstraintViolation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +8,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import java.util.Map;
 import java.util.Objects;
 

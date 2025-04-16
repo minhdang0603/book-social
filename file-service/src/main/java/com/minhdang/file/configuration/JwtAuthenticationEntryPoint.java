@@ -1,8 +1,8 @@
-package com.minhdang.fileservice.configuration;
+package com.minhdang.file.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.minhdang.fileservice.dto.response.ApiResponse;
-import com.minhdang.fileservice.exception.ErrorCode;
+import com.minhdang.file.dto.response.ApiResponse;
+import com.minhdang.file.exception.ErrorCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;

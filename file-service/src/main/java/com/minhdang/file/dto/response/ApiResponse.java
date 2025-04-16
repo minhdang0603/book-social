@@ -1,4 +1,4 @@
-package com.minhdang.fileservice.dto.response;
+package com.minhdang.file.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
