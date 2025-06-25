@@ -1,18 +1,20 @@
 package com.minhdang.file.controller;
 
-import com.minhdang.file.dto.response.ApiResponse;
-import com.minhdang.file.dto.response.FileResponse;
-import com.minhdang.file.service.FileService;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
+import java.io.IOException;
+
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import com.minhdang.file.dto.response.ApiResponse;
+import com.minhdang.file.dto.response.FileResponse;
+import com.minhdang.file.service.FileService;
+
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @RestController
 @RequestMapping("/media")
@@ -23,7 +25,7 @@ public class FileController {
     FileService fileService;
 
     @PostMapping("/upload")
-    ApiResponse<FileResponse> uploadMedia(@RequestParam("file")MultipartFile file) throws IOException {
+    ApiResponse<FileResponse> uploadMedia(@RequestParam("file") MultipartFile file) throws IOException {
         return ApiResponse.<FileResponse>builder()
                 .result(fileService.uploadMedia(file))
                 .build();

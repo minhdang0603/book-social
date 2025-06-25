@@ -48,22 +48,6 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
-    // configure CORS filter for pass CORS policy
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-
-        corsConfiguration.addAllowedOrigin("http://localhost:3000");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addAllowedHeader("*");
-
-        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-        // apply for all endpoints
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-
-        return new CorsFilter(urlBasedCorsConfigurationSource);
-    }
-
     // customize jwt scope prefix
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {

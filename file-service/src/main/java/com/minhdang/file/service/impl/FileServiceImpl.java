@@ -1,5 +1,11 @@
 package com.minhdang.file.service.impl;
 
+import java.io.IOException;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.minhdang.file.dto.response.FileData;
 import com.minhdang.file.dto.response.FileResponse;
 import com.minhdang.file.exception.AppException;
@@ -8,15 +14,10 @@ import com.minhdang.file.mapper.FileMgmtMapper;
 import com.minhdang.file.repository.FileMgmtRepository;
 import com.minhdang.file.repository.FileRepository;
 import com.minhdang.file.service.FileService;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.core.io.Resource;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -46,12 +47,11 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public FileData downloadMedia(String fileName) throws IOException {
-        var fileMgmt = fileMgmtRepository.findById(fileName)
-                .orElseThrow(() -> new AppException(ErrorCode.FILE_NOT_FOUND));
+        var fileMgmt =
+                fileMgmtRepository.findById(fileName).orElseThrow(() -> new AppException(ErrorCode.FILE_NOT_FOUND));
 
         var resource = fileRepository.read(fileMgmt);
 
         return new FileData(fileMgmt.getContentType(), resource);
     }
-
 }

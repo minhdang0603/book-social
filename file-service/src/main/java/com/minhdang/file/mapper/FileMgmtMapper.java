@@ -1,9 +1,10 @@
 package com.minhdang.file.mapper;
 
-import com.minhdang.file.dto.FileInfo;
-import com.minhdang.file.entity.FileMgmt;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import com.minhdang.file.dto.FileInfo;
+import com.minhdang.file.entity.FileMgmt;
 
 @Mapper(componentModel = "spring")
 public interface FileMgmtMapper {

@@ -1,10 +1,11 @@
 package com.minhdang.file.service;
 
-import com.minhdang.file.dto.response.FileData;
-import com.minhdang.file.dto.response.FileResponse;
+import java.io.IOException;
+
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import com.minhdang.file.dto.response.FileData;
+import com.minhdang.file.dto.response.FileResponse;
 
 public interface FileService {
     FileResponse uploadMedia(MultipartFile file) throws IOException;

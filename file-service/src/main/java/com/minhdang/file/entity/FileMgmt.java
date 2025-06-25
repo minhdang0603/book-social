@@ -1,9 +1,10 @@
 package com.minhdang.file.entity;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Document(collection = "file_mgmt")
 @Getter
@@ -15,10 +16,10 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 public class FileMgmt {
     @MongoId
     String id;
+
     String contentType;
     long size;
     String md5Checksum;
     String path;
     String ownerId;
-
 }

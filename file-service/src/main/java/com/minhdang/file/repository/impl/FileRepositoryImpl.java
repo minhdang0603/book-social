@@ -1,9 +1,13 @@
 package com.minhdang.file.repository.impl;
 
-import com.minhdang.file.dto.FileInfo;
-import com.minhdang.file.entity.FileMgmt;
-import com.minhdang.file.repository.FileRepository;
-import lombok.experimental.NonFinal;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Objects;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -12,13 +16,11 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Objects;
-import java.util.UUID;
+import com.minhdang.file.dto.FileInfo;
+import com.minhdang.file.entity.FileMgmt;
+import com.minhdang.file.repository.FileRepository;
+
+import lombok.experimental.NonFinal;
 
 @Repository
 public class FileRepositoryImpl implements FileRepository {
@@ -36,9 +38,8 @@ public class FileRepositoryImpl implements FileRepository {
         Path folder = Paths.get(storageDir);
         String fileExtension = StringUtils.getFilenameExtension(file.getOriginalFilename());
 
-        String fileName = Objects.isNull(fileExtension)
-                ? UUID.randomUUID().toString()
-                : UUID.randomUUID() + "." + fileExtension;
+        String fileName =
+                Objects.isNull(fileExtension) ? UUID.randomUUID().toString() : UUID.randomUUID() + "." + fileExtension;
 
         Path filePath = folder.resolve(fileName).normalize().toAbsolutePath();
 

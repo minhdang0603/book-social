@@ -135,10 +135,10 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>com/devteria/profile/dto/**</exclude>
-						<exclude>com/devteria/profile/entity/**</exclude>
-						<exclude>com/devteria/profile/mapper/**</exclude>
-						<exclude>com/devteria/profile/configuration/**</exclude>
+						<exclude>com/minhdang/profile/dto/**</exclude>
+						<exclude>com/minhdang/profile/entity/**</exclude>
+						<exclude>com/minhdang/profile/mapper/**</exclude>
+						<exclude>com/minhdang/profile/configuration/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
