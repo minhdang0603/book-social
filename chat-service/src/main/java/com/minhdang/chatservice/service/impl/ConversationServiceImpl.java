@@ -57,7 +57,7 @@ public class ConversationServiceImpl implements ConversationService {
                 request.getParticipantIds().getFirst()
         );
 
-        if(Objects.isNull(participantInfoResponse) || Objects.isNull(currentUserInfoResponse)){
+        if (Objects.isNull(participantInfoResponse) || Objects.isNull(currentUserInfoResponse)) {
             throw new AppException(ErrorCode.UNCATEGORIZED_EXCEPTION);
         }
 
@@ -71,39 +71,37 @@ public class ConversationServiceImpl implements ConversationService {
         String participantHash = generateParticipantHash(sortedIds); // Generate a unique hash for the participants
 
         // Check if conversation already exists
-        var existingConversation = conversationRepository.findByParticipantsHash(participantHash)
-                .orElse(null);
-        if(!Objects.isNull(existingConversation)){
-            return toConversationResponse(existingConversation);
-        }
+        var conversation = conversationRepository.findByParticipantsHash(participantHash)
+                .orElseGet(() -> {
+                    List<ParticipantInfo> participants = List.of(
+                            ParticipantInfo.builder()
+                                    .userId(currentUserId)
+                                    .username(userInfo.getUsername())
+                                    .avatar(userInfo.getAvatar())
+                                    .firstName(userInfo.getFirstName())
+                                    .lastName(userInfo.getLastName())
+                                    .build(),
+                            ParticipantInfo.builder()
+                                    .userId(participantInfo.getUserId())
+                                    .username(participantInfo.getUsername())
+                                    .avatar(participantInfo.getAvatar())
+                                    .firstName(participantInfo.getFirstName())
+                                    .lastName(participantInfo.getLastName())
+                                    .build()
+                    );
 
-        List<ParticipantInfo> participants = List.of(
-                ParticipantInfo.builder()
-                        .userId(currentUserId)
-                        .username(userInfo.getUsername())
-                        .avatar(userInfo.getAvatar())
-                        .firstName(userInfo.getFirstName())
-                        .lastName(userInfo.getLastName())
-                        .build(),
-                ParticipantInfo.builder()
-                        .userId(participantInfo.getUserId())
-                        .username(participantInfo.getUsername())
-                        .avatar(participantInfo.getAvatar())
-                        .firstName(participantInfo.getFirstName())
-                        .lastName(participantInfo.getLastName())
-                        .build()
-        );
+                    // Build conversation info
+                    Conversation newConversation = Conversation.builder()
+                            .type(request.getType())
+                            .participantsHash(participantHash)
+                            .createdDate(Instant.now())
+                            .modifiedDate(Instant.now())
+                            .participants(participants)
+                            .build();
 
-        // Build conversation info
-        Conversation conversation = Conversation.builder()
-                .type(request.getType())
-                .participantsHash(participantHash)
-                .createdDate(Instant.now())
-                .modifiedDate(Instant.now())
-                .participants(participants)
-                .build();
-
-        conversation = conversationRepository.save(conversation);
+                    newConversation = conversationRepository.save(newConversation);
+                    return newConversation;
+                });
 
         return toConversationResponse(conversation);
     }
