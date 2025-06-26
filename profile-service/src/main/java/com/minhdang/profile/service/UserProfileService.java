@@ -1,6 +1,7 @@
 package com.minhdang.profile.service;
 
 import com.minhdang.profile.dto.request.ProfileCreationRequest;
+import com.minhdang.profile.dto.request.SearchUserRequest;
 import com.minhdang.profile.dto.request.UpdateProfileRequest;
 import com.minhdang.profile.dto.response.UserProfileResponse;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,4 +19,5 @@ public interface UserProfileService {
     UserProfileResponse getMyProfile();
     UserProfileResponse updateMyProfile(UpdateProfileRequest request);
     UserProfileResponse updateAvatar(MultipartFile file);
+    List<UserProfileResponse> search(SearchUserRequest request);
 }

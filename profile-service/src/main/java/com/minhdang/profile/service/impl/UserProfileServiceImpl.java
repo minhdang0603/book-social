@@ -1,5 +1,6 @@
 package com.minhdang.profile.service.impl;
 
+import com.minhdang.profile.dto.request.SearchUserRequest;
 import com.minhdang.profile.dto.request.UpdateProfileRequest;
 import com.minhdang.profile.exception.AppException;
 import com.minhdang.profile.exception.ErrorCode;
@@ -105,5 +106,18 @@ public class UserProfileServiceImpl implements UserProfileService {
         userProfileRepository.save(userProfile);
 
         return userProfileMapper.toUserProfileResponse(userProfile);
+    }
+
+    @Override
+    public List<UserProfileResponse> search(SearchUserRequest request) {
+
+        var userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        List<UserProfile> userProfiles = userProfileRepository.findAllByUsernameLike(request.getKeyword());
+
+        return userProfiles.stream()
+                .filter(userProfile -> !userId.equals(userProfile.getUserId())) // Exclude current user
+                .map(userProfileMapper::toUserProfileResponse) // Map to response DTO
+                .toList();
     }
 }

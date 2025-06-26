@@ -1,5 +1,6 @@
 package com.minhdang.profile.controller;
 
+import com.minhdang.profile.dto.request.SearchUserRequest;
 import com.minhdang.profile.dto.request.UpdateProfileRequest;
 import com.minhdang.profile.dto.response.ApiResponse;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,13 @@ public class UserProfileController {
     public ApiResponse<UserProfileResponse> updateAvatar(@RequestParam("file") MultipartFile file) {
         return ApiResponse.<UserProfileResponse>builder()
                 .result(userProfileService.updateAvatar(file)) // Replace with actual avatar update logic
+                .build();
+    }
+
+    @PostMapping("/search")
+    public ApiResponse<List<UserProfileResponse>> search(@RequestBody SearchUserRequest request) {
+        return ApiResponse.<List<UserProfileResponse>>builder()
+                .result(userProfileService.search(request))
                 .build();
     }
 }

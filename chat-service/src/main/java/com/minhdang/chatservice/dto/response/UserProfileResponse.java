@@ -1,6 +1,4 @@
-package com.minhdang.profile.dto.response;
-
-import java.time.LocalDate;
+package com.minhdang.chatservice.dto.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -14,10 +12,7 @@ public class UserProfileResponse {
     String id;
     String userId;
     String username;
-    String email;
-    String avatar;
     String firstName;
     String lastName;
-    LocalDate dob;
-    String city;
+    String avatar;
 }
